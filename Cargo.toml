@@ -1,0 +1,9 @@
+[package]
+name = "yorick_jit_runtime"
+version = "0.1.0"
+authors = ["Edd Barrett <vext01@gmail.com>"]
+
+[dependencies]
+lazy_static = "1.0.0"
+log = "0.3.8"
+env_logger = "0.4.3"
