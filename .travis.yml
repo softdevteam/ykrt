@@ -1,0 +1,12 @@
+language: rust
+rust: nightly
+cache: cargo
+
+before_script:
+    - export PATH="$PATH:$HOME/.cargo/bin"
+
+script:
+    - cargo build
+    - cargo doc --no-deps
+    # The JIT has global state, so tests must run sequentially.
+    - RUST_BACKTRACE=full RUST_TEST_THREADS=1 cargo test
