@@ -53,7 +53,7 @@ use std::cell::RefCell;
 type JitLocation = u32;
 
 /// The type used to count how many times a JitLocation has been interpreted.
-type HotCount = u32;
+type HotCount = u16;
 
 /// The number of times a location is interpreted before we trace it.
 /// XXX make this configurable.
