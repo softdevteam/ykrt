@@ -93,9 +93,8 @@ fn trace_pending(loc: JitLocation) -> bool {
 /// Store a trace (or "trace pending" marker in the trace cache for the specified location.
 fn set_trace(loc: JitLocation, trace: JitTrace) {
     // Sanity checks.
+    let mut trace_map = TRACES.write().unwrap();
     {
-        // Extra scope for dropping the lock prior to the write() lock later (avoids deadlock).
-        let trace_map = TRACES.read().unwrap();
         let old_val = trace_map.get(&loc);
         if trace == JitTrace::TracePending {
             // If we are collecting a trace, then the location should not already be in the trace cache.
@@ -105,8 +104,7 @@ fn set_trace(loc: JitLocation, trace: JitTrace) {
             assert!(old_val == Some(&JitTrace::TracePending));
         }
     }
-
-    TRACES.write().unwrap().insert(loc, trace);
+    trace_map.insert(loc, trace);
 }
 
 /// Shared hot counts.
